@@ -14,14 +14,14 @@ const services = [
   },
   {
     icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-6"/></svg>`,
-    title: "Data & Spreadsheet",
-    desc: "Pengolahan data Excel, Google Sheets, visualisasi dashboard, serta otomatisasi pekerjaan administrasi.",
+    title: "Machine Learning",
+    desc: "Pembuatan model klasifikasi, regresi, NLP, computer vision, hingga laporan riset dan implementasi Python.",
     num: "03",
   },
   {
     icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>`,
-    title: "Freelance IT & Coding",
-    desc: "Pengerjaan project web, Android, API, scraping, automation, bug fixing, dan kebutuhan teknis lainnya.",
+    title: "IoT",
+    desc: "Pemrograman Arduino, ESP32, Raspberry Pi, integrasi sensor, dan dashboard monitoring real-time.",
     num: "04",
   },
 ];
@@ -33,10 +33,6 @@ const services = [
         <div class="section-tag">Apa yang Kami Tawarkan</div>
         <h2 class="section-title">Layanan <em>Unggulan</em> Kami</h2>
       </div>
-      <p class="services-intro">
-        Kami menyediakan berbagai layanan profesional yang dirancang khusus
-        untuk kebutuhan unik bisnis Anda.
-      </p>
     </div>
 
     <div class="services-grid">
@@ -208,6 +204,11 @@ const services = [
     transform: translate(-4px, 4px);
     transition: opacity 0.3s, transform 0.3s;
   }
+
+  .service-card:hover .service-arrow {
+  opacity: 1;
+  transform: translate(0, 0);
+}
 
   @media (max-width: 900px) {
     .services-grid { grid-template-columns: 1fr 1fr; }
