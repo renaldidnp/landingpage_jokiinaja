@@ -1,0 +1,412 @@
+---
+const { images, title } = Astro.props;
+---
+
+{images && images.length > 0 && (
+  <div class="gallery-wrap">
+
+    <!-- Gambar utama besar -->
+    <div class="gallery-main">
+      <button class="gallery-main-btn" data-src={images[0]} data-index={0} aria-label="Lihat gambar 1">
+        <img src={images[0]} alt={`${title} - utama`} class="gallery-main-img" loading="eager" />
+        <div class="gallery-main-overlay">
+          <span class="gallery-zoom-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+              <path d="M11 8v6M8 11h6"/>
+            </svg>
+          </span>
+          <span class="gallery-zoom-label">Klik untuk perbesar</span>
+        </div>
+      </button>
+      {images.length > 1 && (
+        <div class="gallery-count-badge">{images.length} Foto</div>
+      )}
+    </div>
+
+    <!-- Strip thumbnail -->
+    {images.length > 1 && (
+      <div class="gallery-strip">
+        {images.map((src: string, i: number) => (
+          <button
+            class={`gallery-thumb ${i === 0 ? 'active' : ''}`}
+            data-src={src}
+            data-index={i}
+            aria-label={`Lihat gambar ${i + 1}`}
+          >
+            <img src={src} alt={`${title} - ${i + 1}`} loading="lazy" />
+            <div class="thumb-overlay"></div>
+          </button>
+        ))}
+      </div>
+    )}
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <div class="lb-backdrop" id="lb-backdrop"></div>
+      <button class="lb-close" id="lb-close" aria-label="Tutup">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 6 6 18M6 6l12 12"/>
+        </svg>
+      </button>
+      <button class="lb-prev" id="lb-prev" aria-label="Sebelumnya">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="m15 18-6-6 6-6"/>
+        </svg>
+      </button>
+      <button class="lb-next" id="lb-next" aria-label="Berikutnya">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="m9 18 6-6-6-6"/>
+        </svg>
+      </button>
+      <div class="lb-inner">
+        <img src="" alt="" id="lb-img" />
+        <div class="lb-counter" id="lb-counter"></div>
+      </div>
+    </div>
+
+  </div>
+)}
+
+<style>
+  .gallery-wrap {
+    margin: 24px 0 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* ── Gambar Utama ── */
+  .gallery-main {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-alt);
+  }
+
+  .gallery-main-btn {
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: zoom-in;
+    display: block;
+    position: relative;
+  }
+
+  .gallery-main-img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .gallery-main-btn:hover .gallery-main-img {
+    transform: scale(1.03);
+  }
+
+  .gallery-main-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 27, 46, 0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.3s;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.3s, background 0.3s;
+  }
+
+  .gallery-main-btn:hover .gallery-main-overlay {
+    background: rgba(13, 27, 46, 0.45);
+    opacity: 1;
+  }
+
+  .gallery-zoom-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid rgba(255,255,255,0.4);
+  }
+
+  .gallery-zoom-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  }
+
+  .gallery-count-badge {
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+    background: rgba(13,27,46,0.7);
+    backdrop-filter: blur(6px);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 100px;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  /* ── Strip Thumbnail ── */
+  .gallery-strip {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .gallery-strip::-webkit-scrollbar { height: 3px; }
+  .gallery-strip::-webkit-scrollbar-track { background: var(--color-border); border-radius: 4px; }
+  .gallery-strip::-webkit-scrollbar-thumb { background: var(--color-navy); border-radius: 4px; }
+
+  .gallery-thumb {
+    flex-shrink: 0;
+    width: 100px;
+    height: 70px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 0;
+    background: none;
+    scroll-snap-align: start;
+    transition: border-color 0.2s, opacity 0.2s;
+    position: relative;
+    opacity: 0.6;
+  }
+
+  .gallery-thumb.active,
+  .gallery-thumb:hover {
+    border-color: var(--color-navy);
+    opacity: 1;
+  }
+
+  .gallery-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .thumb-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(27,58,107,0.2);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .gallery-thumb:hover .thumb-overlay { opacity: 1; }
+
+  /* ── Lightbox ── */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+  }
+
+  .lightbox.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .lb-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.94);
+    cursor: zoom-out;
+  }
+
+  .lb-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    max-width: 92vw;
+    max-height: 90vh;
+  }
+
+  #lb-img {
+    max-width: 88vw;
+    max-height: 82vh;
+    object-fit: contain;
+    border-radius: 10px;
+    display: block;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+  }
+
+  .lb-counter {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+  }
+
+  .lb-close {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(255,255,255,0.2);
+    color: #fff;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+    z-index: 2;
+  }
+
+  .lb-close:hover {
+    background: rgba(255,255,255,0.25);
+    transform: rotate(90deg);
+  }
+
+  .lb-prev,
+  .lb-next {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(255,255,255,0.2);
+    color: #fff;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+    z-index: 2;
+  }
+
+  .lb-prev { left: 16px; }
+  .lb-next { right: 16px; }
+
+  .lb-prev:hover {
+    background: rgba(255,255,255,0.25);
+    transform: translateY(-50%) translateX(-3px);
+  }
+
+  .lb-next:hover {
+    background: rgba(255,255,255,0.25);
+    transform: translateY(-50%) translateX(3px);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .gallery-main-img { height: 260px; }
+    .gallery-thumb { width: 80px; height: 56px; }
+    .lb-prev { left: 8px; }
+    .lb-next { right: 8px; }
+    .lb-prev, .lb-next { width: 40px; height: 40px; }
+    #lb-img { max-width: 95vw; max-height: 75vh; }
+  }
+
+  @media (max-width: 480px) {
+    .gallery-main-img { height: 200px; }
+    .gallery-zoom-label { display: none; }
+  }
+</style>
+
+<script>
+  const thumbs = document.querySelectorAll<HTMLButtonElement>('.gallery-thumb');
+  const mainBtn = document.querySelector<HTMLButtonElement>('.gallery-main-btn');
+  const mainImg = document.querySelector<HTMLImageElement>('.gallery-main-img');
+  const lightbox = document.getElementById('lightbox')!;
+  const lbImg = document.getElementById('lb-img') as HTMLImageElement;
+  const lbCounter = document.getElementById('lb-counter')!;
+  const lbClose = document.getElementById('lb-close')!;
+  const lbPrev = document.getElementById('lb-prev')!;
+  const lbNext = document.getElementById('lb-next')!;
+  const lbBackdrop = document.getElementById('lb-backdrop')!;
+
+  const images = Array.from(thumbs).map(t => t.dataset.src || '');
+  let current = 0;
+
+  // Klik thumbnail → update gambar utama
+  thumbs.forEach((thumb, i) => {
+    thumb.addEventListener('click', () => {
+      if (mainImg) mainImg.src = thumb.dataset.src || '';
+      if (mainBtn) mainBtn.dataset.index = String(i);
+      thumbs.forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+    });
+  });
+
+  // Klik gambar utama → buka lightbox
+  mainBtn?.addEventListener('click', () => {
+    const index = parseInt(mainBtn.dataset.index || '0');
+    openLightbox(index);
+  });
+
+  function openLightbox(index: number) {
+    current = index;
+    lbImg.src = images[current];
+    lbCounter.textContent = images.length > 1 ? `${current + 1} / ${images.length}` : '';
+    lightbox.classList.add('active');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function showPrev() {
+    if (images.length <= 1) return;
+    current = (current - 1 + images.length) % images.length;
+    lbImg.src = images[current];
+    lbCounter.textContent = `${current + 1} / ${images.length}`;
+  }
+
+  function showNext() {
+    if (images.length <= 1) return;
+    current = (current + 1) % images.length;
+    lbImg.src = images[current];
+    lbCounter.textContent = `${current + 1} / ${images.length}`;
+  }
+
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', showPrev);
+  lbNext.addEventListener('click', showNext);
+  lbBackdrop.addEventListener('click', closeLightbox);
+
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') showPrev();
+    if (e.key === 'ArrowRight') showNext();
+  });
+</script>

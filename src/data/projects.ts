@@ -2,13 +2,13 @@ export interface Project {
   slug: string;
   category: string;
   title: string;
-  desc: string; // untuk card & meta description
+  desc: string;
   tags: string[];
   result: string;
   year: string;
   color: string;
-  // Detail halaman
   image: string;
+  images?: string[];
   client: string;
   duration: string;
   team: string;
@@ -29,6 +29,7 @@ export const projects: Project[] = [
     year: "2025",
     color: "#E8F5E9",
     image: "/portofolio/bansos.png",
+    images: ["/portofolio/bansos.png", "/portofolio/bansos1.png", "/portofolio/bansos2.png"],
 
     client: "Program Monitoring Sosial",
     duration: "4 Bulan",
