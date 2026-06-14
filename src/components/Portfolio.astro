@@ -1,0 +1,416 @@
+---
+import { projects } from '../data/projects';
+
+// Ambil semua kategori unik
+const categories = [
+  "Semua",
+  ...new Set(projects.map((p) => p.category))
+];
+---
+
+<section id="portofolio" class="portfolio">
+  <div class="container">
+
+    <div class="portfolio-header reveal">
+      <div>
+        <div class="section-tag">Hasil Nyata</div>
+        <h2 class="section-title">
+          Portofolio <em>Terpilih</em>
+        </h2>
+      </div>
+    </div>
+
+    <!-- Filter -->
+    <div class="portfolio-filters">
+      {categories.map((category, index) => (
+        <button
+          class={`filter-btn ${index === 0 ? 'active' : ''}`}
+          data-filter={category}
+        >
+          {category}
+        </button>
+      ))}
+    </div>
+
+    <!-- List Project -->
+    <div class="portfolio-list">
+
+      {projects.map((project, index) => (
+       <a
+  href={`/portofolio/${project.slug}`}
+  class={`project-row ${index > 5 ? 'hidden-project' : ''}`}
+  data-category={project.category}
+>
+  <div class="project-left">
+
+    <div class="project-meta">
+      {project.category} • {project.year}
+    </div>
+
+    <h3>{project.title}</h3>
+
+    <p>{project.desc}</p>
+
+    <div class="project-tags">
+      {project.tags.slice(0, 3).map(tag => (
+        <span class="tag">{tag}</span>
+      ))}
+    </div>
+
+  </div>
+
+  <div class="project-right">
+
+    <span class="project-result">
+      {project.result}
+    </span>
+
+    <span class="project-arrow">
+      ↗
+    </span>
+
+  </div>
+</a>
+      ))}
+
+    </div>
+
+    <!-- Lihat Semua -->
+    {projects.length > 6 && (
+      <div class="portfolio-footer">
+        <button id="showAllProjects" class="portfolio-more-btn">
+          Lihat Semua Project ({projects.length})
+        </button>
+      </div>
+    )}
+
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  const filters = document.querySelectorAll('.filter-btn');
+  const projects = document.querySelectorAll('.project-row');
+  const showAllBtn = document.getElementById('showAllProjects');
+
+  filters.forEach(btn => {
+
+    btn.addEventListener('click', () => {
+
+      filters.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+
+      projects.forEach(project => {
+
+        const category = project.dataset.category;
+
+        if (filter === 'Semua' || category === filter) {
+          project.style.display = 'flex';
+        } else {
+          project.style.display = 'none';
+        }
+
+      });
+
+    });
+
+  });
+
+  showAllBtn?.addEventListener('click', () => {
+
+    document
+      .querySelectorAll('.hidden-project')
+      .forEach(item => item.classList.remove('hidden-project'));
+
+    showAllBtn.remove();
+
+  });
+
+});
+</script>
+
+<style>
+.portfolio {
+  padding: 120px 0;
+  background: var(--color-bg);
+}
+
+.portfolio-header {
+  margin-bottom: 32px;
+}
+
+/* =========================
+   FILTER
+========================= */
+
+.portfolio-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.filter-btn {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-muted);
+
+  padding: 12px 18px;
+
+  border-radius: 999px;
+
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all .25s ease;
+}
+
+.filter-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.filter-btn.active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+/* =========================
+   PROJECT LIST
+========================= */
+
+.portfolio-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* =========================
+   PROJECT CARD
+========================= */
+
+.project-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 32px;
+
+  background: var(--color-surface);
+
+  border: 1px solid var(--color-border);
+
+  border-radius: 24px;
+
+  padding: 28px;
+
+  text-decoration: none;
+  color: inherit;
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
+}
+
+.project-row:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(0,0,0,.1);
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.06);
+}
+
+/* =========================
+   LEFT
+========================= */
+
+.project-left {
+  flex: 1;
+}
+
+.project-meta {
+  display: inline-flex;
+  align-items: center;
+
+  font-size: 0.72rem;
+  font-weight: 700;
+
+  letter-spacing: .08em;
+  text-transform: uppercase;
+
+  color: var(--color-accent);
+
+  margin-bottom: 12px;
+}
+
+.project-left h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+
+  line-height: 1.3;
+
+  color: var(--color-primary);
+
+  margin-bottom: 12px;
+}
+
+.project-left p {
+  color: var(--color-muted);
+
+  font-size: .95rem;
+
+  line-height: 1.8;
+
+  max-width: 720px;
+}
+
+/* =========================
+   RIGHT
+========================= */
+
+.project-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  flex-shrink: 0;
+}
+
+.project-result {
+  background: #ecfdf5;
+
+  color: #15803d;
+
+  padding: 10px 16px;
+
+  border-radius: 999px;
+
+  font-size: .82rem;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.project-arrow {
+  width: 48px;
+  height: 48px;
+
+  border-radius: 50%;
+
+  background: #f3f4f6;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1rem;
+
+  transition: .25s ease;
+}
+
+.project-row:hover .project-arrow {
+  background: var(--color-primary);
+  color: white;
+}
+
+/* =========================
+   HIDDEN
+========================= */
+
+.hidden-project {
+  display: none;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.portfolio-footer {
+  margin-top: 42px;
+  text-align: center;
+}
+
+.portfolio-more-btn {
+  border: none;
+
+  background: var(--color-primary);
+
+  color: white;
+
+  padding: 14px 28px;
+
+  border-radius: 999px;
+
+  font-weight: 600;
+  font-size: .95rem;
+
+  cursor: pointer;
+
+  transition: .25s ease;
+}
+
+.portfolio-more-btn:hover {
+  transform: translateY(-2px);
+
+  opacity: .95;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+  .portfolio {
+    padding: 80px 0;
+  }
+
+  .project-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .project-right {
+    width: 100%;
+
+    justify-content: space-between;
+  }
+
+  .project-left h3 {
+    font-size: 1.15rem;
+  }
+
+  .project-left p {
+    font-size: .9rem;
+  }
+
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.tag {
+  padding: 6px 12px;
+
+  border-radius: 999px;
+
+  background: #f3f4f6;
+
+  color: #4b5563;
+
+  font-size: .75rem;
+  font-weight: 600;
+}
+</style>

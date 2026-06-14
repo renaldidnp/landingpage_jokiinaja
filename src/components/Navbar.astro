@@ -1,0 +1,189 @@
+---
+---
+<header class="navbar">
+  <div class="container nav-inner">
+    <a href="/" class="logo">JokiinAja<span>.</span></a>
+    <nav>
+      <a href="#layanan" class="nav-link">Layanan</a>
+      <a href="#tentang" class="nav-link">Tentang</a>
+      <a href="#portofolio" class="nav-link">Portofolio</a>
+      <a href="#testimoni" class="nav-link">Testimoni</a>
+      <a href="#kontak" class="btn-nav">Hubungi Kami <span class="arrow">↗</span></a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#layanan">Layanan</a>
+    <a href="#tentang">Tentang</a>
+    <a href="#portofolio">Portofolio</a>
+    <a href="#testimoni">Testimoni</a>
+    <a href="#kontak">Hubungi Kami</a>
+  </div>
+</header>
+
+<style>
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(247, 245, 242, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
+  }
+
+  .navbar.scrolled {
+    background: rgba(247, 245, 242, 0.95);
+    border-bottom-color: var(--color-border);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+
+  .logo {
+    font-family: var(--font-display);
+    font-size: 1.55rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    letter-spacing: -0.02em;
+    transition: opacity 0.2s;
+  }
+
+  .logo:hover { opacity: 0.75; }
+  .logo span { color: var(--color-accent); }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+  }
+
+  .nav-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background: var(--color-accent);
+    transition: width 0.3s var(--ease-out-expo);
+  }
+
+  .nav-link:hover {
+    color: var(--color-primary);
+  }
+
+  .nav-link:hover::after { width: 100%; }
+
+  .btn-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--color-primary);
+    color: #fff !important;
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+
+  .btn-nav .arrow {
+    transition: transform 0.25s;
+    display: inline-block;
+  }
+
+  .btn-nav:hover {
+    background: var(--color-accent);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(200, 169, 110, 0.35);
+  }
+
+  .btn-nav:hover .arrow {
+    transform: translate(2px, -2px);
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--color-primary);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    padding: 16px 24px 24px;
+    gap: 20px;
+    border-top: 1px solid var(--color-border);
+    background: var(--color-surface);
+  }
+
+  .mobile-menu a {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    transition: color 0.2s, padding-left 0.2s;
+  }
+
+  .mobile-menu a:hover {
+    color: var(--color-accent);
+    padding-left: 8px;
+  }
+
+  .mobile-menu.open { display: flex; }
+
+  @media (max-width: 860px) {
+    nav { display: none; }
+    .hamburger { display: flex; }
+  }
+</style>
+
+<script>
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+  btn?.addEventListener('click', () => {
+    btn.classList.toggle('open');
+    menu?.classList.toggle('open');
+  });
+
+  // Close menu on link click
+  menu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      btn?.classList.remove('open');
+      menu.classList.remove('open');
+    });
+  });
+</script>

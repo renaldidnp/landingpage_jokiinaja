@@ -1,0 +1,353 @@
+---
+// Hero.astro — JokiinAja
+// SEO: semantic <h1>, structured data, descriptive alt text, clear CTAs
+---
+
+<!-- ── JSON-LD: Service Schema ── -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Jasa Joki Tugas & Coding JokiinAja",
+  "provider": {
+    "@type": "Organization",
+    "name": "JokiinAja",
+    "url": "https://jokiinaja.com"
+  },
+  "description": "Jasa pengerjaan tugas coding, skripsi, dan proyek IT profesional. Cepat, aman, dan tepat waktu.",
+  "areaServed": "ID",
+  "serviceType": ["Joki Tugas IT", "Pembuatan Skripsi", "Jasa Coding", "Pengembangan Aplikasi"],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "350"
+  }
+})} />
+
+<section class="hero" aria-label="Hero — JokiinAja Jasa Joki Tugas IT Profesional">
+  <div class="container hero-wrap">
+
+    <!-- ── LEFT: Copy ── -->
+    <div class="hero-copy">
+
+      <div class="trust-badge" role="img" aria-label="Dipercaya lebih dari 350 mahasiswa IT">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        <span>Dipercaya <strong>350+</strong> Mahasiswa IT</span>
+      </div>
+
+      <!-- h1 mengandung keyword utama untuk SEO -->
+      <h1 class="hero-heading">
+        Joki Tugas &amp; Coding<br />
+        <span class="accent">Profesional,</span><br />
+        Tepat Waktu.
+      </h1>
+
+      <p class="hero-sub">
+        Kami bantu selesaikan <strong>tugas coding</strong>, <strong>skripsi IT</strong>, dan 
+        <strong>proyek digital</strong> kamu — dari frontend hingga backend, 
+        dikerjakan developer berpengalaman, aman dan terjamin.
+      </p>
+
+      <!-- USP chips — cepat dibaca client -->
+      <ul class="usp-list" aria-label="Keunggulan layanan">
+        <li><span class="usp-icon" aria-hidden="true">✓</span> Revisi Gratis</li>
+        <li><span class="usp-icon" aria-hidden="true">✓</span> Garansi Tepat Waktu</li>
+        <li><span class="usp-icon" aria-hidden="true">✓</span> Harga Transparan</li>
+      </ul>
+
+      <div class="hero-ctas">
+        <a 
+          href="https://wa.me/6281234567890?text=Halo,%20saya%20mau%20konsultasi%20joki%20tugas" 
+          class="btn-primary cta-wa"
+          rel="noopener"
+          aria-label="Hubungi kami via WhatsApp untuk konsultasi gratis"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Konsultasi Gratis
+        </a>
+        <a href="#portofolio" class="btn-ghost" aria-label="Lihat portofolio proyek kami">
+          Lihat Portofolio
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- ── RIGHT: Visual Cards ── -->
+    <div class="hero-visual" aria-hidden="true">
+
+      <!-- Card 1: Terminal -->
+      <div class="v-card terminal-card reveal reveal-scale" data-delay="100">
+        <div class="term-bar">
+          <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+          <span class="term-title">terminal</span>
+        </div>
+        <div class="term-body">
+          <p class="term-line"><span class="dim">$</span> git push origin main</p>
+          <p class="term-line"><span class="success">✓</span> Build &amp; deploy success</p>
+          <p class="term-line dim">→ Siap dikumpul 🎉</p>
+        </div>
+      </div>
+
+      <!-- Card 2: Stats row -->
+      <div class="stats-row">
+        <div class="v-card stat-card reveal reveal-scale" data-delay="250">
+          <span class="stat-num" data-target="350" data-suffix="+">0+</span>
+          <span class="stat-label">Proyek Selesai</span>
+        </div>
+        <div class="v-card stat-card reveal reveal-scale" data-delay="350">
+          <span class="stat-num" data-target="100" data-suffix="%">0%</span>
+          <span class="stat-label">Tepat Waktu</span>
+        </div>
+      </div>
+
+      <!-- Card 3: Review snippet -->
+      <div class="v-card review-card reveal reveal-scale" data-delay="450">
+        <div class="review-stars" aria-label="Rating bintang 5">★★★★★</div>
+        <p class="review-text">"Cepat, rapi, dan penjelasannya detail. Lulus sidang langsung!"</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">RH</div>
+          <div>
+            <strong>Rizky H.</strong>
+            <span class="dim"> · Teknik Informatika</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Decorative blobs -->
+  <div class="blob blob-1" aria-hidden="true"></div>
+  <div class="blob blob-2" aria-hidden="true"></div>
+</section>
+
+<style>
+  /* ────────────────────────────────────
+     HERO SECTION
+  ──────────────────────────────────── */
+  .hero {
+    position: relative;
+    padding: 110px 0 100px;
+    overflow: hidden;
+  }
+
+  .hero-wrap {
+    display: grid;
+    grid-template-columns: 1fr 440px;
+    gap: 72px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Decorative blobs ── */
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .blob-1 {
+    width: 480px; height: 480px;
+    background: radial-gradient(circle, rgba(27,58,107,0.10) 0%, transparent 70%);
+    top: -80px; right: -80px;
+  }
+  .blob-2 {
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(232,91,28,0.08) 0%, transparent 70%);
+    bottom: 0; left: -60px;
+  }
+
+  /* ── Trust Badge ── */
+  .trust-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    color: var(--color-navy);
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 6px 14px 6px 10px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+  .trust-badge strong { color: var(--color-orange); }
+
+  .pulse-dot {
+    width: 8px; height: 8px;
+    background: #27c93f;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+  }
+  .pulse-dot::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: rgba(39,201,63,0.25);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.6); opacity: 0; } }
+
+  /* ── Heading ── */
+  .hero-heading {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    color: var(--color-navy);
+    margin-bottom: 20px;
+  }
+  .hero-heading .accent { color: var(--color-orange); }
+
+  /* ── Sub text ── */
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--color-muted);
+    line-height: 1.7;
+    max-width: 500px;
+    margin-bottom: 24px;
+  }
+  .hero-sub strong { color: var(--color-primary); font-weight: 600; }
+
+  /* ── USP chips ── */
+  .usp-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .usp-list li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--color-orange-light);
+    color: var(--color-orange-dark);
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 5px 14px;
+    border-radius: 100px;
+    border: 1px solid rgba(232,91,28,0.2);
+  }
+  .usp-icon { font-style: normal; color: var(--color-orange); font-weight: 700; }
+
+  /* ── CTAs ── */
+  .hero-ctas {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .cta-wa { gap: 10px; font-size: 0.98rem; }
+
+  /* ── Visual Cards ── */
+  .hero-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .v-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    transition: box-shadow 0.3s var(--ease-out-expo), transform 0.3s var(--ease-out-expo);
+  }
+  .v-card:hover {
+    box-shadow: 0 8px 32px rgba(27,58,107,0.10);
+    transform: translateY(-3px);
+  }
+
+  /* Terminal */
+  .terminal-card { background: var(--color-navy); padding: 0 !important; }
+  .term-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .term-title { font-size: 0.72rem; color: rgba(255,255,255,0.35); margin-left: 8px; font-family: monospace; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .r { background: #ff5f56; } .y { background: #ffbd2e; } .g { background: #27c93f; }
+
+  .term-body { padding: 16px 20px; font-family: 'Courier New', monospace; font-size: 0.84rem; }
+  .term-line { color: rgba(255,255,255,0.85); margin-bottom: 6px; }
+  .term-line:last-child { margin-bottom: 0; }
+  .success { color: #27c93f; }
+  .dim { color: rgba(255,255,255,0.35); }
+  .term-line .dim { color: rgba(255,255,255,0.4); }
+
+  /* Stats row */
+  .stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .stat-card { text-align: center; padding: 20px 16px !important; }
+  .stat-num {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--color-navy);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-label { font-size: 0.78rem; color: var(--color-muted); font-weight: 500; }
+
+  /* Review card */
+  .review-stars { color: #f59e0b; font-size: 1rem; margin-bottom: 8px; letter-spacing: 2px; }
+  .review-text {
+    font-size: 0.88rem;
+    color: var(--color-primary);
+    line-height: 1.6;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+  .reviewer { display: flex; align-items: center; gap: 10px; }
+  .reviewer-avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--color-navy);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .reviewer strong { font-size: 0.84rem; color: var(--color-primary); }
+  .reviewer .dim { font-size: 0.8rem; color: var(--color-muted); }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .hero-wrap { grid-template-columns: 1fr 380px; gap: 48px; }
+  }
+
+  @media (max-width: 768px) {
+    .hero { padding: 80px 0 72px; }
+    .hero-wrap {
+      grid-template-columns: 1fr;
+      gap: 48px;
+      text-align: center;
+    }
+    .hero-copy { display: flex; flex-direction: column; align-items: center; }
+    .hero-sub { max-width: 100%; }
+    .usp-list { justify-content: center; }
+    .hero-ctas { justify-content: center; }
+    .hero-visual { max-width: 400px; margin: 0 auto; width: 100%; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-heading { font-size: 2rem; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .hero-ctas { flex-direction: column; width: 100%; }
+    .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+  }
+</style>
