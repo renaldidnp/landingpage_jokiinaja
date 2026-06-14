@@ -1,10 +1,12 @@
 ---
-// src/pages/portofolio/[slug].astro
-// ⚠️  Ganti nama Layout sesuai milik Anda
 import Layout from '../../layouts/Layout.astro';
 import { projects } from '../../data/projects';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import SidebarCTA   from '../../components/porto/SidebarCTA.astro';
+import SidebarInfo  from '../../components/porto/SidebarInfo.astro';
+import SidebarTrust from '../../components/porto/SidebarTrust.astro';
 
-// Nomor WhatsApp Anda — ganti di sini saja
 const WA_NUMBER = '6281234567890';
 
 export function getStaticPaths() {
@@ -59,7 +61,7 @@ const jsonLd = JSON.stringify({
     <meta name="twitter:description" content={metaDesc} />
     <script type="application/ld+json" set:html={jsonLd} />
   </Fragment>
-
+<Navbar />
   <main class="detail-page">
       <div class="hero-badge">{project.year}</div>
     </div>
@@ -181,60 +183,10 @@ const jsonLd = JSON.stringify({
 
         <!-- ── Sidebar sticky ── -->
         <aside class="detail-sidebar">
-
-          <!-- CTA utama -->
-          <div class="sidebar-cta">
-            <div class="cta-header">
-              <div class="cta-avatar">🚀</div>
-              <div>
-                <div class="cta-title">Tertarik proyek serupa?</div>
-                <div class="cta-sub">Konsultasi gratis via WhatsApp</div>
-              </div>
-            </div>
-            <a href={waUrl} target="_blank" rel="noopener noreferrer" class="btn-wa">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-              </svg>
-              Chat WhatsApp Sekarang
-            </a>
-            <p class="cta-note">Biasanya dibalas dalam 5 menit ⚡</p>
-          </div>
-
-          <!-- Info proyek -->
-          <div class="sidebar-info">
-            <div class="si-title">Info Proyek</div>
-            <div class="si-row"><span>Klien</span><strong>{project.client}</strong></div>
-            <div class="si-row"><span>Kategori</span><strong>{project.category}</strong></div>
-            <div class="si-row"><span>Durasi</span><strong>{project.duration}</strong></div>
-            <div class="si-row"><span>Tim</span><strong>{project.team}</strong></div>
-            <div class="si-row"><span>Tahun</span><strong>{project.year}</strong></div>
-            <div class="si-row result-row">
-              <span>Hasil</span>
-              <strong class="result-pill">{project.result}</strong>
-            </div>
-          </div>
-
-          <!-- Trust signals -->
-          <div class="sidebar-trust">
-            <div class="trust-item">
-              <span class="trust-icon">✓</span>
-              <span>Pengerjaan tepat waktu</span>
-            </div>
-            <div class="trust-item">
-              <span class="trust-icon">✓</span>
-              <span>Revisi hingga puas</span>
-            </div>
-            <div class="trust-item">
-              <span class="trust-icon">✓</span>
-              <span>Harga transparan</span>
-            </div>
-            <div class="trust-item">
-              <span class="trust-icon">✓</span>
-              <span>Source code disertakan</span>
-            </div>
-          </div>
-
-        </aside>
+  <SidebarCTA waUrl={waUrl} />
+  <SidebarInfo project={project} />
+  <SidebarTrust />
+</aside>
 
       </div>
 
@@ -262,6 +214,7 @@ const jsonLd = JSON.stringify({
     </a>
 
   </main>
+  <Footer />
   <script>
   document.body.classList.add('page-portofolio');
 </script>
@@ -271,6 +224,10 @@ const jsonLd = JSON.stringify({
 
 .project-image-wrap {
   margin: 24px 0 32px;
+}
+
+:global(body.page-portofolio) {
+  overflow-x: clip; /* ← ganti hidden ke clip, sticky tetap jalan */
 }
 
 .project-image {
@@ -545,162 +502,12 @@ const jsonLd = JSON.stringify({
 /* ── Sidebar ── */
 .detail-sidebar {
   position: sticky;
-  top: 24px;
+  top: 100px;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-/* CTA card */
-.sidebar-cta {
-  background: var(--color-primary);
-  border-radius: 16px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.cta-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.cta-avatar {
-  width: 44px;
-  height: 44px;
-  background: rgba(255,255,255,0.15);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.3rem;
-  flex-shrink: 0;
-}
-
-.cta-title {
-  font-weight: 700;
-  font-size: 0.95rem;
-  color: #fff;
-  margin-bottom: 2px;
-}
-
-.cta-sub {
-  font-size: 0.78rem;
-  color: rgba(255,255,255,0.6);
-}
-
-.cta-note {
-  text-align: center;
-  font-size: 0.75rem;
-  color: rgba(255,255,255,0.5);
-  margin: 0;
-}
-
-/* WA button */
-.btn-wa {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background: #25D366;
-  color: #fff;
-  font-weight: 700;
-  font-size: 0.9rem;
-  padding: 14px 20px;
-  border-radius: 10px;
-  text-decoration: none;
-  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 16px rgba(37,211,102,0.35);
-}
-
-.btn-wa:hover {
-  background: #1ebe5d;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(37,211,102,0.45);
-}
-
-.btn-wa.large {
-  font-size: 1rem;
-  padding: 16px 28px;
-  border-radius: 12px;
-}
-
-/* Sidebar info */
-.sidebar-info {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 14px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.si-title {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-muted);
-  margin-bottom: 14px;
-}
-
-.si-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 9px 0;
-  border-bottom: 1px solid var(--color-border);
-  font-size: 0.82rem;
-  gap: 8px;
-}
-
-.si-row:last-child { border-bottom: none; }
-.si-row span { color: var(--color-muted); }
-.si-row strong { color: var(--color-primary); text-align: right; }
-
-.result-pill {
-  background: var(--color-green-light, #e6f7ee);
-  color: var(--color-green, #16a34a) !important;
-  padding: 3px 10px;
-  border-radius: 100px;
-  font-size: 0.78rem;
-}
-
-/* Trust signals */
-.sidebar-trust {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 14px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.trust-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.82rem;
-  color: var(--color-muted);
-}
-
-.trust-icon {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--color-green-light, #e6f7ee);
-  color: var(--color-green, #16a34a);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.65rem;
-  font-weight: 900;
-  flex-shrink: 0;
-}
 
 /* ── Bottom CTA ── */
 .bottom-cta {
@@ -762,6 +569,7 @@ const jsonLd = JSON.stringify({
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
+    top: unset;
   }
 
   .sidebar-cta { grid-column: span 2; }

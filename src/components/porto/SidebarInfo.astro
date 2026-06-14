@@ -1,0 +1,54 @@
+---
+const { project } = Astro.props;
+---
+<div class="sidebar-info">
+  <div class="si-title">Info Proyek</div>
+  <div class="si-row"><span>Klien</span><strong>{project.client}</strong></div>
+  <div class="si-row"><span>Kategori</span><strong>{project.category}</strong></div>
+  <div class="si-row"><span>Durasi</span><strong>{project.duration}</strong></div>
+  <div class="si-row"><span>Tim</span><strong>{project.team}</strong></div>
+  <div class="si-row"><span>Tahun</span><strong>{project.year}</strong></div>
+  <div class="si-row result-row">
+    <span>Hasil</span>
+    <strong class="result-pill">{project.result}</strong>
+  </div>
+</div>
+
+<style>
+  .sidebar-info {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .si-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-bottom: 14px;
+  }
+  .si-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.82rem;
+    gap: 8px;
+  }
+  .si-row:last-child { border-bottom: none; }
+  .si-row span { color: var(--color-muted); }
+  .si-row strong { color: var(--color-primary); text-align: right; }
+  .result-pill {
+    background: var(--color-green-light, #e6f7ee);
+    color: var(--color-green, #16a34a) !important;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 0.78rem;
+  }
+</style>
